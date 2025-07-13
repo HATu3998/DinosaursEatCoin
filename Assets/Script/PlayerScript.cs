@@ -24,9 +24,15 @@ public class PlayerScript : MonoBehaviour
             animator.SetBool("isJump", true);
         }
     }
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D col)
     {
-        isGround = true;
-        animator.SetBool("isJump", false);
+      if(col.gameObject.name == "road")
+        {
+            isGround = true;
+            animator.SetBool("isJump", false);
+        }else if (col.gameObject.tag == "coin")
+        {
+            Destroy(col.gameObject);
+        }
     }
 }
