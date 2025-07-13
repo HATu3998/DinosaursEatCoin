@@ -1,13 +1,13 @@
 using UnityEngine;
 
-public class BackgroundRun : MonoBehaviour
+public class RoadRun : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-
-    private SpriteRenderer spriteRenderer;
+    SpriteRenderer spriteRenderer;
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        
     }
 
     // Update is called once per frame
