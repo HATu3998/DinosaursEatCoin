@@ -1,4 +1,7 @@
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerScript : MonoBehaviour
 {
@@ -7,7 +10,10 @@ public class PlayerScript : MonoBehaviour
     private bool isGround;
     private Animator animator;
 
-
+    public Text gameStatus;
+    public Text textScore;
+    int score = 0;
+    bool isGameOver;
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
@@ -23,6 +29,12 @@ public class PlayerScript : MonoBehaviour
             isGround = false;
             animator.SetBool("isJump", true);
         }
+        if(Input.GetKeyDown(KeyCode.Space) && isGameOver)
+        {
+            SceneManager.LoadScene("SampleScene");
+            isGameOver = false;
+            Time.timeScale = 1;
+        }
     }
     private void OnCollisionEnter2D(Collision2D col)
     {
@@ -33,6 +45,14 @@ public class PlayerScript : MonoBehaviour
         }else if (col.gameObject.tag == "coin")
         {
             Destroy(col.gameObject);
+            score++;
+            textScore.text = "Score: " + score;
+        }else if(col.gameObject.tag == "tree")
+        {
+            Time.timeScale= 0;
+            gameStatus.gameObject.SetActive(true);
+            isGameOver = true;
         }
+
     }
 }
